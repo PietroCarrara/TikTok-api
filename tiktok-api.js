@@ -25,10 +25,10 @@ tiktok.getFeed = function(maxCursor = '') {
 	})
 }
 
-tiktok.getUserFavs = function(userID, maxCursor = '') {
+tiktok.getUserFavs = function(userID, count = 15, maxCursor = '') {
 	console.log(userID, maxCursor)
 
-	return fetch(this.apiUrl + `/aweme/v1/aweme/favorite/?gaid=cc596c3d-4b9d-478a-85a7-546ac14fb67a&user_id=${userID}&max_cursor=${maxCursor}&` + this.mandatoryParams, {
+	return fetch(this.apiUrl + `/aweme/v1/aweme/favorite/?gaid=cc596c3d-4b9d-478a-85a7-546ac14fb67a&user_id=${userID}&count=${count}&max_cursor=${maxCursor}&` + this.mandatoryParams, {
 		method: 'GET',
 		mode: 'cors'
 	})
@@ -37,7 +37,7 @@ tiktok.getUserFavs = function(userID, maxCursor = '') {
 		var obj = await res.json()
 		if (obj.has_more != 0) {
 			tiktok.next = function() {
-				return tiktok.getUserFavs(userID, obj.max_cursor)
+				return tiktok.getUserFavs(userID, count, obj.max_cursor)
 			}
 		} else {
 			tiktok.next = null
