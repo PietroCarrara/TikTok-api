@@ -6,11 +6,11 @@ tiktok.mandatoryParams = 'aid=1233&mas=01338126947f9eff7d978258a1e8be45042c2c2c1
 
 tiktok.getFeed = function(maxCursor = '') {
 
-	return fetch(this.apiUrl + `/aweme/v1/feed/?max_cursr=${maxCursor}&` + this.mandatoryParams, {
+	return fetch(this.apiUrl + `/aweme/v1/feed/?max_cursor=${maxCursor}&` + this.mandatoryParams, {
 		method: 'GET',
 		mode: 'cors'
 	})
-	.then(res => 
+	.then(async res => 
 	{
 		var obj = await res.json()
 		if (obj.has_more != 0) {
